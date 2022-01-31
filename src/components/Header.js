@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { Container, Menu, Segment } from "semantic-ui-react";
+import { Menu } from "semantic-ui-react";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -23,7 +23,8 @@ const Header = () => {
           <Menu.Item as="a" content="Logout" onClick={handleLogout} />
         </Menu.Menu>
       </Menu>
-      <Segment />
+      <br />
+      <br />
     </>
   );
 };

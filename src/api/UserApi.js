@@ -14,6 +14,6 @@ export const UserApi = {
     return axios.put("/users/" + id, data, { headers: { Authorization: "Bearer " + token } });
   },
   deleteUser: (id, token) => {
-    return axios.delete("/users" + id, { headers: { Authorization: "Bearer " + token } });
+    return axios.delete("/users/" + id, { headers: { Authorization: "Bearer " + token } });
   },
 };

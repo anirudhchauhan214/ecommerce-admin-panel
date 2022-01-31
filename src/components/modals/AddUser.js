@@ -3,7 +3,7 @@ import { Button, Form, Modal, Segment } from "semantic-ui-react";
 import { UserApi } from "../../api/UserApi";
 import { toast } from "react-toastify";
 
-const EditUser = ({ data, onOpen, onClose, open }) => {
+const AddUser = ({ data, onOpen, onClose, open }) => {
   const [userData, setUserData] = useState();
   const [jwt, setJwt] = useState();
 
@@ -102,4 +102,4 @@ const EditUser = ({ data, onOpen, onClose, open }) => {
   );
 };
 
-export default EditUser;
+export default AddUser;
