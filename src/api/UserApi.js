@@ -1,7 +1,5 @@
 import axios from "axios";
 
-const token = localStorage.getItem("token");
-
 export const UserApi = {
   login: (data) => {
     return axios.post("/signin", data);
@@ -9,10 +7,13 @@ export const UserApi = {
   register: (data) => {
     return axios.post("/register", data);
   },
-  getAllUsers: () => {
+  getAllUsers: (token) => {
     return axios.get("/users", { headers: { Authorization: "Bearer " + token } });
   },
-  updateUser: (uId, data) => {
-    return axios.put("/users/" + uId, data, { headers: { Authorization: "Bearer" + token } });
+  updateUser: (id, data, token) => {
+    return axios.put("/users/" + id, data, { headers: { Authorization: "Bearer " + token } });
+  },
+  deleteUser: (id, token) => {
+    return axios.delete("/users" + id, { headers: { Authorization: "Bearer " + token } });
   },
 };

@@ -3,9 +3,14 @@ import { Button, Form, Modal, Segment } from "semantic-ui-react";
 import { UserApi } from "../../api/UserApi";
 
 const EditUser = ({ data, onOpen, onClose, open }) => {
-  const [userData, setUserData] = useState();
+  const [userData, setUserData] = useState(data);
+  const [jwt, setJwt] = useState();
 
-  useEffect(() => setUserData(data), [data]);
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    setJwt(token);
+    setUserData(data);
+  }, [data]);
 
   const handleChange = (e) => {
     e.preventDefault();
@@ -13,14 +18,15 @@ const EditUser = ({ data, onOpen, onClose, open }) => {
   };
 
   const handleSubmit = (e) => {
-    const data = {
+    e.preventDefault();
+    const updatedData = {
       name: userData.name,
       email: userData.email,
       phone: userData.phone,
       address: userData.address,
     };
-    e.preventDefault();
-    UserApi.updateUser(userData.userId, data).then((res) => {
+
+    UserApi.updateUser(userData.userId, updatedData, jwt).then((res) => {
       if (res.data.status === true) {
         onClose();
       }
@@ -28,7 +34,7 @@ const EditUser = ({ data, onOpen, onClose, open }) => {
   };
 
   return (
-    <Modal onClose={onClose} onOpen={onOpen} open={open} centered={false}>
+    <Modal onClose={onClose} onOpen={onOpen} open={open}>
       <Modal.Header>Edit User</Modal.Header>
       <Modal.Content>
         <Form size="large">

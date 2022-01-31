@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { Container, Menu } from "semantic-ui-react";
+import { Container, Menu, Segment } from "semantic-ui-react";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -11,39 +11,20 @@ const Header = () => {
     navigate("/login");
   };
   return (
-    <Container className="mb-5">
-      <Menu fixed="top" inverted>
-        <Menu.Item as="button" content="Home" onClick={() => navigate("/")} className="border-0" />
-        <Menu.Item
-          as="button"
-          content="Users"
-          onClick={() => navigate("/users")}
-          className="border-0"
-        />
-        <Menu.Item
-          as="button"
-          content="Products"
-          onClick={() => navigate("/products")}
-          className="border-0"
-        />
-        <Menu.Item
-          as="button"
-          content="Product Categories"
-          onClick={() => navigate("/category")}
-          className="border-0"
-        />
+    <>
+      <Menu fixed="top" inverted style={{ marginBottom: "12vh" }}>
+        <Menu.Item as="a" content="Home" onClick={() => navigate("/")} />
+        <Menu.Item as="a" content="Users" onClick={() => navigate("/users")} />
+        <Menu.Item as="a" content="Products" onClick={() => navigate("/products")} />
+        <Menu.Item as="a" content="Product Categories" onClick={() => navigate("/category")} />
 
         <Menu.Menu position="right">
-          <Menu.Item
-            as="button"
-            content="Profile"
-            onClick={() => navigate("/profile")}
-            className="border-0"
-          />
-          <Menu.Item as="button" content="Logout" className="border-0" onClick={handleLogout} />
+          <Menu.Item as="a" content="Profile" onClick={() => navigate("/profile")} />
+          <Menu.Item as="a" content="Logout" onClick={handleLogout} />
         </Menu.Menu>
       </Menu>
-    </Container>
+      <Segment />
+    </>
   );
 };
 

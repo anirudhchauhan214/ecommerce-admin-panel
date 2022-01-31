@@ -7,20 +7,34 @@ const tableHeaders = ["Name", "Email", "Phone", "Address", "Role", "Created At",
 const Users = () => {
   const [data, setData] = useState();
   const [open, setOpen] = useState(false);
+  const [jwt, setJWT] = useState();
 
   useEffect(() => {
-    getUsers();
+    const token = localStorage.getItem("token");
+    setJWT(token);
+    getUsers(token);
   }, []);
 
-  const getUsers = () => {
-    UserApi.getAllUsers().then((res) => {
+  const getUsers = (token) => {
+    UserApi.getAllUsers(token).then((res) => {
       if (res.data.status === true) {
         setData(res.data.users);
       }
     });
   };
 
-  const onOpen = () => setOpen(true);
+  const handleUserDelete = (e, userId) => {
+    e.preventDefault();
+    UserApi.deleteUser(jwt).then((res) => {
+      const filtered = data.filter((user, i) => userId !== user.userId);
+      console.log(filtered);
+      console.log(res);
+    });
+  };
+
+  const onOpen = () => {
+    setOpen(true);
+  };
   const onClose = () => setOpen(false);
 
   return (
@@ -46,9 +60,13 @@ const Users = () => {
                   <Table.Cell>{user.createdAt}</Table.Cell>
                   <Table.Cell>
                     <Button icon="edit" onClick={onOpen} />
-                    <Button icon="user delete" className="mx-2" />
+                    <Button
+                      icon="user delete"
+                      className="mx-2"
+                      onClick={(e) => handleUserDelete(e, user.userId)}
+                    />
+                    <EditUser key={i} onClose={onClose} onOpen={onOpen} open={open} data={user} />
                   </Table.Cell>
-                  <EditUser onClose={onClose} onOpen={onOpen} open={open} data={user} />
                 </Table.Row>
               );
             })}
